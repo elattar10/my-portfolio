@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mahmoud | Portfolio</title>
+  <meta name="description" content="Mahmoud — Computer Science student & web developer portfolio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;           /* slate-900 */
+      --bg-soft: #111827;      /* gray-900 */
+      --elev: #0b1223;         /* slightly darker card bg */
+      --text: #e5e7eb;         /* gray-200 */
+      --muted: #94a3b8;        /* slate-400 */
+      --accent: #22d3ee;       /* cyan-400 */
+      --accent-2: #a78bfa;     /* violet-400 */
+      --border: #1f2937;       /* gray-800 */
+      --success: #34d399;      /* green-400 */
+      --warning: #f59e0b;      /* amber-500 */
+    }
+
+    /* Light mode palette */
+    .light {
+      --bg: #ffffff;
+      --bg-soft: #f8fafc;      /* slate-50 */
+      --elev: #ffffff;
+      --text: #0f172a;         /* slate-900 */
+      --muted: #475569;        /* slate-600 */
+      --accent: #0ea5e9;       /* sky-500 */
+      --accent-2: #8b5cf6;     /* violet-500 */
+      --border: #e2e8f0;       /* slate-200 */
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(34,211,238,0.12), transparent 60%),
+                  radial-gradient(1200px 800px at -10% 10%, rgba(167,139,250,0.10), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Layout helpers */
+    .container { width: min(1100px, 92%); margin: 0 auto; }
+    .grid { display: grid; gap: 1.25rem; }
+
+    /* Header + Nav */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(8px);
+      background: color-mix(in oklab, var(--bg) 75%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; padding: .8rem 0;
+    }
+    .brand { display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.3px; }
+    .logo {
+      width: 34px; height: 34px; border-radius: 10px; display:grid; place-items:center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #0b1223; font-weight:900;
+      box-shadow: 0 6px 18px rgba(34,211,238,.25), 0 2px 6px rgba(167,139,250,.18);
+    }
+    nav a { color: var(--muted); text-decoration:none; margin-left: 1rem; font-weight:600; }
+    nav a:hover, nav a:focus { color: var(--text); }
+
+    .actions { display:flex; align-items:center; gap:.6rem; }
+    .btn {
+      border: 1px solid var(--border); color: var(--text); background: var(--elev);
+      padding: .55rem .9rem; border-radius: .8rem; font-weight: 600; text-decoration:none;
+      transition: transform .12s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); border-color: color-mix(in oklab, var(--accent), var(--border) 60%); }
+    .btn-primary {
+      border: none; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #061018;
+      box-shadow: 0 8px 22px rgba(34,211,238,.28), 0 3px 8px rgba(139,92,246,.22);
+    }
+
+    /* Hero */
+    .hero { padding: 72px 0 42px; }
+    .hero-wrap { display:grid; gap: 2rem; grid-template-columns: 1.2fr .8fr; align-items: center; }
+    @media (max-width: 900px){ .hero-wrap { grid-template-columns: 1fr; } }
+
+    .kicker { color: var(--accent); font-weight:700; letter-spacing:.2em; font-size:.8rem; text-transform:uppercase; }
+    h1 { font-size: clamp(2rem, 4.8vw, 3.2rem); line-height:1.1; margin:.5rem 0 1rem; }
+    .lead { color: var(--muted); font-size: clamp(1.02rem, 1.8vw, 1.15rem); max-width: 60ch; }
+    .hero-cta { display:flex; gap:.7rem; margin-top: 1.2rem; flex-wrap: wrap; }
+
+    .avatar {
+      width: 180px; height: 180px; border-radius: 26px; overflow:hidden; border:1px solid var(--border);
+      background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(167,139,250,.18));
+      display:grid; place-items:center; font-size: 64px;
+    }
+    .hero-card {
+      background: color-mix(in oklab, var(--bg) 85%, var(--elev));
+      border: 1px solid var(--border); padding: 1rem; border-radius: 18px; display:flex; gap:1rem; align-items:center;
+    }
+
+    /* Section headings */
+    section { padding: 56px 0; }
+    .section-head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 18px; }
+    .section-head h2 { margin:0; font-size: clamp(1.4rem, 3.5vw, 2rem); }
+    .sub { color: var(--muted); font-size:.95rem; }
+
+    /* About */
+    .about { background: color-mix(in oklab, var(--bg) 92%, var(--bg-soft)); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .about-grid { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 800px){ .about-grid { grid-template-columns: 1fr; } }
+    .about-card { background: var(--elev); border: 1px solid var(--border); border-radius: 16px; padding: 1.1rem; }
+
+    /* Skills */
+    .skills-list { display:flex; flex-wrap:wrap; gap:.6rem; }
+    .chip { border:1px solid var(--border); background: color-mix(in oklab, var(--elev) 85%, transparent); padding: .45rem .7rem; border-radius: 999px; font-weight:600; }
+    .meter { height: 9px; background:#0b1223; border-radius: 999px; border:1px solid var(--border); overflow:hidden; }
+    .meter > span { display:block; height:100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); width: 60%; }
+
+    /* Projects */
+    .cards { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 1000px){ .cards { grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 650px){ .cards { grid-template-columns: 1fr;} }
+    .card {
+      background: var(--elev); border:1px solid var(--border); border-radius: 18px; overflow: hidden; display:flex; flex-direction:column;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .card:hover { transform: translateY(-4px); border-color: color-mix(in oklab, var(--accent), var(--border) 60%);
+      box-shadow: 0 12px 28px rgba(2,6,23,.35);
+    }
+    .thumb { aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(167,139,250,.18)); display:grid; place-items:center; font-size: 42px; }
+    .card-body { padding: 1rem; display:flex; flex-direction:column; gap:.6rem; }
+    .card h3 { margin:.1rem 0; }
+    .badge { font-size:.75rem; color: var(--muted); }
+
+    /* Resume */
+    .resume { background: color-mix(in oklab, var(--bg) 92%, var(--bg-soft)); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .resume-grid { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 900px){ .resume-grid { grid-template-columns: 1fr; } }
+    .timeline { border-left: 2px dashed color-mix(in oklab, var(--muted), transparent 40%); padding-left: 1rem; }
+    .time-item { margin-bottom: 1rem; }
+    .time-item h4 { margin: .2rem 0; }
+
+    /* Contact */
+    form { display:grid; gap:.8rem; }
+    .input, textarea {
+      width: 100%; padding: .8rem .9rem; border-radius: .8rem; border:1px solid var(--border);
+      background: color-mix(in oklab, var(--elev) 85%, transparent); color: var(--text);
+    }
+    textarea { min-height: 120px; resize: vertical; }
+
+    /* Footer */
+    footer { border-top:1px solid var(--border); padding: 26px 0; color: var(--muted); text-align:center; }
+
+    /* Utilities */
+    .row { display:flex; gap: 1rem; flex-wrap:wrap; }
+    .grow { flex:1; }
+    .hide-mobile { display:block; } @media (max-width: 700px){ .hide-mobile { display:none; } }
+    .mono { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">M</div>
+        <span>Mahmoud</span>
+      </div>
+      <nav aria-label="Primary">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="actions">
+        <button id="mode" class="btn" aria-label="Toggle theme">☀️/🌙</button>
+        <a class="btn btn-primary" href="#contact">Hire Me</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="home" class="hero">
+    <div class="container hero-wrap">
+      <div>
+        <div class="kicker">Web Developer • CS Student</div>
+        <h1>Hi, I’m Mahmoud — building clean, modern web experiences.</h1>
+        <p class="lead">I enjoy turning ideas into real, user-friendly interfaces. I’m currently focused on JavaScript, React, SQL, and solid computer science foundations.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn" href="#resume">Download CV</a>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="row">
+          <div class="avatar" aria-label="profile">🧑‍💻</div>
+          <div class="hero-card grow">
+            <div>
+              <strong>Based in</strong><br>
+              <span class="muted">Cairo, Egypt</span>
+            </div>
+            <div>
+              <strong>Open to</strong><br>
+              <span class="muted">Internships & freelance</span>
+            </div>
+            <div>
+              <strong>Email</strong><br>
+              <a href="mailto:yourname@email.com" style="color:var(--accent)">yourname@email.com</a>
+            </div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div>
+            <div class="mono" style="font-weight:700">Current Focus</div>
+            <div class="sub">Data Structures • Algorithms • React • SQL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section id="about" class="about">
+    <div class="container">
+      <div class="section-head">
+        <h2>About Me</h2>
+        <div class="sub">Who I am & what I love doing</div>
+      </div>
+      <div class="grid about-grid">
+        <div class="about-card">
+          <p>
+            I’m a Computer Science student who loves building web apps and learning core CS concepts. I enjoy solving problems, writing readable code, and turning designs into smooth user experiences.
+          </p>
+          <p>
+            My goal is to become a professional software engineer delivering real value through clean code, performance, and good UX.
+          </p>
+        </div>
+        <div class="about-card">
+          <ul>
+            <li><strong>Location:</strong> Cairo, Egypt</li>
+            <li><strong>Languages:</strong> English, Arabic</li>
+            <li><strong>Interests:</strong> Web Dev, Databases, Algorithms</li>
+            <li><strong>Availability:</strong> Part‑time / Remote</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <div class="section-head">
+        <h2>Skills</h2>
+        <div class="sub">Tech I use & learn</div>
+      </div>
+      <div class="skills-list">
+        <span class="chip">HTML</span>
+        <span class="chip">CSS</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">React</span>
+        <span class="chip">Python</span>
+        <span class="chip">SQL / MySQL</span>
+        <span class="chip">Git & GitHub</span>
+        <span class="chip">VS Code</span>
+      </div>
+
+      <div class="grid" style="margin-top:1rem; grid-template-columns: 1fr 1fr; gap:1rem">
+        <div>
+          <div class="row" style="justify-content:space-between">
+            <strong>HTML/CSS</strong><span class="muted">Advanced</span>
+          </div>
+          <div class="meter"><span style="width:85%"></span></div>
+        </div>
+        <div>
+          <div class="row" style="justify-content:space-between">
+            <strong>JavaScript</strong><span class="muted">Intermediate</span>
+          </div>
+          <div class="meter"><span style="width:70%"></span></div>
+        </div>
+        <div>
+          <div class="row" style="justify-content:space-between">
+            <strong>React</strong><span class="muted">Intermediate</span>
+          </div>
+          <div class="meter"><span style="width:60%"></span></div>
+        </div>
+        <div>
+          <div class="row" style="justify-content:space-between">
+            <strong>SQL</strong><span class="muted">Intermediate</span>
+          </div>
+          <div class="meter"><span style="width:65%"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <div class="sub">Some things I’ve built recently</div>
+      </div>
+      <div class="grid cards">
+        <!-- Project 1 -->
+        <article class="card">
+          <div class="thumb" aria-label="project thumbnail">🛒</div>
+          <div class="card-body">
+            <h3>Online Store (Front‑End)</h3>
+            <div class="badge">HTML • CSS • JavaScript</div>
+            <p>A simple e-commerce UI with product browsing, cart simulation, and responsive layout.</p>
+            <div class="row">
+              <a class="btn" href="#" target="_blank" rel="noopener">Live</a>
+              <a class="btn" href="#" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </article>
+        <!-- Project 2 -->
+        <article class="card">
+          <div class="thumb" aria-label="project thumbnail">🎓</div>
+          <div class="card-body">
+            <h3>Student DB Manager</h3>
+            <div class="badge">Python • SQL</div>
+            <p>CLI tool to perform CRUD operations on a MySQL student database with simple auth.</p>
+            <div class="row">
+              <a class="btn" href="#" target="_blank" rel="noopener">Docs</a>
+              <a class="btn" href="#" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </article>
+        <!-- Project 3 -->
+        <article class="card">
+          <div class="thumb" aria-label="project thumbnail">🌐</div>
+          <div class="card-body">
+            <h3>Personal Portfolio (This)</h3>
+            <div class="badge">HTML • CSS</div>
+            <p>A clean, responsive one-page portfolio with smooth navigation and dark/light mode.</p>
+            <div class="row">
+              <a class="btn" href="#home">Top</a>
+              <a class="btn" href="#" target="_blank" rel="noopener">Source</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="resume" class="resume">
+    <div class="container">
+      <div class="section-head">
+        <h2>Resume</h2>
+        <div class="sub">Education & highlights</div>
+      </div>
+      <div class="grid resume-grid">
+        <div class="about-card">
+          <h3>Education</h3>
+          <div class="timeline">
+            <div class="time-item">
+              <h4>B.Sc. in Computer Science</h4>
+              <div class="sub">Faculty of Computers & Information — 2nd Year</div>
+              <div class="muted">2024 — Present</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-card">
+          <h3>Highlights</h3>
+          <ul>
+            <li>Strong grasp of Database (SQL) fundamentals.</li>
+            <li>Solid understanding of Data Structures & Algorithms.</li>
+            <li>Built multiple mini projects with clean, readable code.</li>
+            <li>Comfortable with Git/GitHub workflows.</li>
+          </ul>
+          <div class="row" style="margin-top:.4rem">
+            <a class="btn btn-primary" href="#" download>Download CV (PDF)</a>
+            <a class="btn" href="#contact">Get in touch</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <h2>Contact</h2>
+        <div class="sub">Let’s talk about your idea</div>
+      </div>
+      <div class="grid" style="grid-template-columns: 1.1fr .9fr; gap:1.25rem">
+        <div class="about-card">
+          <form onsubmit="event.preventDefault(); alert('Thanks! I will get back to you soon.'); this.reset();">
+            <input class="input" type="text" placeholder="Your Name" required>
+            <input class="input" type="email" placeholder="Your Email" required>
+            <textarea class="input" placeholder="Your Message" required></textarea>
+            <button class="btn btn-primary" type="submit">Send Message</button>
+          </form>
+        </div>
+        <div class="about-card">
+          <h3>Elsewhere</h3>
+          <p class="muted">You can also find me on:</p>
+          <p><a class="btn" href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a>
+             <a class="btn" href="https://www.linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a></p>
+          <p>Email: <a href="mailto:yourname@email.com" style="color:var(--accent)">yourname@email.com</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© 2025 Mahmoud — All Rights Reserved</div>
+  </footer>
+
+  <script>
+    // Theme toggle (dark/light)
+    const btn = document.getElementById('mode');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') document.body.classList.add('light');
+
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>
